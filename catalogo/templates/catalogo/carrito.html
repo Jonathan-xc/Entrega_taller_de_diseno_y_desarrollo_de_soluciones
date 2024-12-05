@@ -1,0 +1,73 @@
+{% extends 'catalogo/base.html' %}
+
+{% block title %}Carrito de Compras{% endblock %}
+
+{% block content %}
+<div class="carrito-container mt-5">
+    <!-- Título principal -->
+    <div class="carrito-row">
+        <div class="col-12 text-center">
+            <h1 class="mb-5 carrito-titulo">CARRITO DE COMPRAS</h1>
+        </div>
+    </div>
+
+    <div class="carrito-row">
+        <!-- Sección de productos -->
+        <div class="col-md-8 carrito-col-productos">
+            {% if detalles %}
+                <div class="list-group">
+                    {% for detalle in detalles %}
+                    <div class="carrito-list-item d-flex justify-content-between align-items-center">
+                        <!-- Imagen y detalles del producto -->
+                        <div class="d-flex align-items-center">
+                            <img src="{{ detalle.producto.imagen.url }}" alt="{{ detalle.producto.nombre }}" class="carrito-producto-imagen">
+                            <div>
+                                <h5>{{ detalle.producto.nombre }}</h5>
+                                <p class="mb-1">{{ detalle.producto.precio_formateado }}</p>
+                            </div>
+                        </div>
+                        <!-- Controles de cantidad y eliminación -->
+                        <div class="d-flex align-items-center">
+                            <!-- Entrada de cantidad con evento dinámico -->
+                            <input 
+                                type="number" 
+                                name="cantidad" 
+                                value="{{ detalle.cantidad }}" 
+                                min="1" 
+                                max="{{ detalle.producto.stock }}" 
+                                class="form-control form-control-sm text-center carrito-cantidad-input" 
+                                data-stock="{{ detalle.producto.stock }}" 
+                                data-detalle-id="{{ detalle.id }}"
+                            >
+                            <!-- Botón de eliminar -->
+                            <form method="POST" action="{% url 'eliminar_producto_carrito' detalle.id %}" class="ms-3">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm carrito-btn">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-center">Tu carrito está vacío.</p>
+            {% endif %}
+        </div>
+
+        <!-- Resumen del carrito -->
+        <div class="col-md-4 carrito-col-resumen">
+            <div class="carrito-card">
+                <div class="carrito-card-body">
+                    <h5 class="carrito-card-title">Resumen del Carrito</h5>
+                    <p class="mb-1"><strong>Total de artículos:</strong> <span id="carrito-total-items">{{ total_cantidad }}</span></p>
+                    <p class="mb-1"><strong>Total:</strong> <span id="carrito-total-sin-iva">{{ total }}</span></p>
+                    <p class="mb-1"><strong>Transporte:</strong> Gratis</p>
+                    <!-- Separador -->
+                    <hr class="carrito-separador">
+                    <p class="mb-1"><strong>Total (IVA inc.):</strong> <span id="carrito-total-iva">{{ total_con_iva }}</span></p>
+                    <a href="{% url 'finalizar_compra' %}" class="btn btn-success w-100 mt-3 carrito-btn">Finalizar Compra</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'admin_panel/admin_base.html' %}
+
+{% block title %}Eliminar Producto{% endblock %}
+
+{% block content %}
+<h1 class="admin-panel-title">Eliminar Producto</h1>
+<p>¿Estás seguro de que deseas eliminar el producto "{{ producto.nombre }}"?</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn-action btn-danger">Eliminar</button>
+    <a href="{% url 'listar_productos' %}" class="btn-action">Cancelar</a>
+</form>
+{% endblock %}

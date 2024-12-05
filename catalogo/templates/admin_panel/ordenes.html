@@ -1,0 +1,107 @@
+{% extends 'admin_panel/admin_base.html' %}
+
+{% block title %}Órdenes de Compra{% endblock %}
+
+{% block content %}
+<div class="tabs-container">
+    <a href="#en_preparacion" class="tab-link tab-active">En preparación</a>
+    <a href="#en_transito" class="tab-link">En tránsito</a>
+    <a href="#finalizado" class="tab-link">Finalizado</a>
+</div>
+
+<div id="en_preparacion" class="tab-content active-tab">
+    <h2>En preparación</h2>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Número de Orden</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos_preparacion %}
+            <tr>
+                <td>{{ pedido.id }}</td>
+                <td>{{ pedido.usuario.nombre }}</td>
+                <td>{{ pedido.total_formateado }}</td>
+                <td><a href="{% url 'ver_detalles_pedido' pedido.id %}">Ver detalles</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay pedidos en preparación.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div id="en_transito" class="tab-content">
+    <h2>En tránsito</h2>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Número de Orden</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Acciones</th>
+                <th>Actualizar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos_transito %}
+            <tr>
+                <td>{{ pedido.id }}</td>
+                <td>{{ pedido.usuario.nombre }}</td>
+                <td>{{ pedido.total_formateado }}</td>
+                <td><a href="{% url 'ver_detalles_pedido' pedido.id %}">Ver detalles</a></td>
+                <td>
+                    <form method="POST" action="{% url 'actualizar_estado_pedido' pedido.id %}">
+                        {% csrf_token %}
+                        <select name="estado">
+                            <option value="preparacion" {% if pedido.estado == "preparacion" %}selected{% endif %}>En preparación</option>
+                            <option value="transito" {% if pedido.estado == "transito" %}selected{% endif %}>En tránsito</option>
+                            <option value="finalizado" {% if pedido.estado == "finalizado" %}selected{% endif %}>Finalizado</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay pedidos en tránsito.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div id="finalizado" class="tab-content">
+    <h2>Finalizado</h2>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Número de Orden</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos_finalizado %}
+            <tr>
+                <td>{{ pedido.id }}</td>
+                <td>{{ pedido.usuario.nombre }}</td>
+                <td>{{ pedido.total_formateado }}</td>
+                <td><a href="{% url 'ver_detalles_pedido' pedido.id %}">Ver detalles</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hay pedidos finalizados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

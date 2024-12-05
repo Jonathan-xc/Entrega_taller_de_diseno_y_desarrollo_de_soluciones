@@ -1,0 +1,52 @@
+{% extends "catalogo/base.html" %}
+
+{% block title %}Cambiar Contraseña{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h1 class="text-center">Cambiar Contraseña</h1>
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <!-- Contraseña antigua -->
+        <div class="form-group">
+            <label for="id_old_password">Contraseña antigua:</label>
+            {{ form.old_password }}
+            {% if form.old_password.errors %}
+                <div class="text-danger" aria-hidden="true">
+                    {{ form.old_password.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Contraseña nueva -->
+        <div class="form-group">
+            <label for="id_new_password1">Nueva contraseña:</label>
+            {{ form.new_password1 }}
+            {% if form.new_password1.errors %}
+                <div class="text-danger" aria-hidden="true">
+                    {{ form.new_password1.errors|join:", " }}
+                </div>
+            {% endif %}
+            <small class="form-text text-muted" aria-hidden="true">
+                Su contraseña debe tener al menos 8 caracteres, incluir letras y números.
+            </small>
+        </div>
+
+        <!-- Confirmar nueva contraseña -->
+        <div class="form-group">
+            <label for="id_new_password2">Confirmar nueva contraseña:</label>
+            {{ form.new_password2 }}
+            {% if form.new_password2.errors %}
+                <div class="text-danger" aria-hidden="true">
+                    {{ form.new_password2.errors|join:", " }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Botón -->
+        <button type="submit" class="btn btn-primary w-100 mt-3">Cambiar Contraseña</button>
+    </form>
+</div>
+{% endblock %}

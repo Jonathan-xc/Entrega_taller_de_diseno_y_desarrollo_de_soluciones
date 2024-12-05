@@ -1,0 +1,21 @@
+{% extends 'catalogo/base.html' %}
+
+{% block title %}Perfil de {{ user.nombre }}{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+    <h1>Datos personales</h1>
+    <div class="profile-details">
+        <p><strong>Nombre:</strong> {{ user.nombre|default:"No proporcionado" }}</p>
+        <p><strong>Correo electrónico:</strong> {{ user.email }}</p>
+        <p><strong>Dirección:</strong> {{ user.direccion|default:"No proporcionada" }}</p>
+        <p><strong>Número de teléfono:</strong> {{ user.telefono|default:"No proporcionado" }}</p>
+    </div>
+    <div class="profile-buttons">
+        <a href="{% url 'cambiar_contrasena' %}" class="btn btn-primary">Modificar contraseña</a>
+        <a href="{% url 'editar_perfil' %}" class="btn btn-secondary">Editar perfil</a>
+    </div>
+</div>
+
+{% endblock %}

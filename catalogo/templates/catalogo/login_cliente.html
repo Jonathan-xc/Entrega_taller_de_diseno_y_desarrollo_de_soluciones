@@ -1,0 +1,68 @@
+{% extends 'catalogo/base.html' %}
+
+{% block title %}Inicio de Sesión{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h1>Iniciar Sesión</h1>
+
+    <!-- Mostrar mensajes de error o éxito -->
+    {% if messages %}
+    <div class="alert-container">
+        {% for message in messages %}
+            {% if "login" in message.tags or "error" in message.tags %}
+                <div class="alert {% if "error" in message.tags %}alert-danger{% else %}alert-success{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Formulario de inicio de sesión -->
+    <form id="login-form" method="POST" action="{% url 'login' %}" novalidate>
+        {% csrf_token %}
+        
+        <!-- Campo oculto para `next` -->
+        <input type="hidden" name="next" value="{{ next }}">
+        
+        <!-- Email -->
+        <div class="form-group">
+            <label for="id_email">Correo Electrónico:</label>
+            <input 
+                type="email" 
+                name="email" 
+                id="id_email" 
+                class="form-control" 
+                placeholder="Ingrese su correo" 
+                required
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                value="{{ request.POST.email|default:'' }}"
+            >
+            <small class="form-text text-muted">Formato: usuario@dominio.com</small>
+        </div>
+    
+        <!-- Contraseña -->
+        <div class="form-group">
+            <label for="id_password">Contraseña:</label>
+            <input 
+                type="password" 
+                name="password" 
+                id="id_password" 
+                class="form-control" 
+                placeholder="Ingrese su contraseña" 
+                required
+                minlength="8"
+            >
+            <small class="form-text text-muted">Debe contener al menos 8 caracteres.</small>
+        </div>
+    
+        <!-- Botón -->
+        <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+    </form>
+    <p class="text-center mt-3">
+        ¿No tienes una cuenta? <a href="{% url 'registro' %}">Regístrate aquí</a>.
+    </p>
+</div>
+{% endblock %}

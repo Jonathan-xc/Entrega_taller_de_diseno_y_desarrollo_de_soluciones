@@ -1,0 +1,46 @@
+{% extends 'admin_panel/admin_base.html' %}
+
+{% block title %}Administración de Productos{% endblock %}
+
+{% block content %}
+<div class="tabs-container">
+    <a href="{% url 'listar_productos' %}" class="{% if request.resolver_match.url_name == 'listar_productos' %}tab-active{% else %}tab-inactive{% endif %}">Lista de Productos</a>
+    <a href="{% url 'crear_producto' %}" class="{% if request.resolver_match.url_name == 'crear_producto' %}tab-active{% else %}tab-inactive{% endif %}">Añadir Producto</a>
+</div>
+<h1 class="admin-panel-title">Lista de Productos</h1>
+<table class="admin-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Categoría</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.id }}</td>
+            <td>
+                {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" style="width: 80px; height: auto; border-radius: 5px;">
+                {% else %}
+                No disponible
+                {% endif %}
+            </td>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.precio_formateado }}</td> <!-- Usar el método para mostrar precio en CLP -->
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.get_categoria_display }}</td>
+            <td>
+                <a href="{% url 'editar_producto' producto.id %}" class="btn-edit">Editar</a>
+                <a href="{% url 'eliminar_producto' producto.id %}" class="btn-delete">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,307 @@
+/* Fondo para el login */
+.admin-login-body {
+    background: linear-gradient(to bottom, #000428, #004e92);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* === Estilo específico para login === */
+.login-container {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 480px;
+    padding: 30px 40px;
+    text-align: center;
+}
+
+.login-title {
+    font-size: 24px;
+    color: #ff4c68;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.form-control::placeholder {
+    color: #aaa;
+}
+
+/* Botón de login */
+.btn-login {
+    background: #ff4c68;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.btn-login:hover {
+    background: #e2435d;
+}
+
+/* Footer del formulario */
+.login-footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+}
+
+/* Fondo principal del panel */
+body.admin-panel-body {
+    background-color: #f0f2f6;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Sidebar del panel de administración */
+.admin-sidebar {
+    width: 250px; /* Ajustar el ancho del sidebar */
+    background-color: #d1d1d1;
+    color: #2c3e50;
+    padding: 20px;
+    height: calc(100vh - 100px); /* Altura con márgenes superior e inferior */
+    position: fixed;
+    overflow-y: auto;
+    border-radius: 15px; /* Bordes curvos */
+    margin: 0px 0 10px 20px; /* Margen superior: 20px, izquierda: 20px */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Logo del sidebar */
+.admin-sidebar .logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.admin-sidebar .logo img {
+    width: 200px; /* Tamaño del logo ajustado */
+    height: auto;
+    max-width: 100%;
+}
+
+/* Menú del sidebar */
+.admin-sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.admin-sidebar nav ul li {
+    margin: 10px 0;
+}
+
+.admin-sidebar nav ul li a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Resalto de menú seleccionado */
+.admin-sidebar nav ul li a.active,
+.admin-sidebar nav ul li a:hover {
+    background-color: #aeaeae;
+    color: #000;
+}
+
+/* Botón de cerrar sesión */
+.admin-sidebar .logout-button {
+    margin-top: 20px;
+    background-color: #e74c3c;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    display: block;
+}
+
+.admin-sidebar .logout-button:hover {
+    background-color: #c0392b;
+}
+
+/* Contenido principal */
+.admin-content {
+    margin-left: 280px; /* Espacio a la izquierda para alinearse con el sidebar */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 15px; /* Bordes curvos */
+    margin: 20px 20px 20px 320px; /* Espaciado con el sidebar */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.admin-panel-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.admin-panel-overview {
+    font-size: 16px;
+    color: #34495e;
+    margin-bottom: 20px;
+}
+
+/* Tablas */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+}
+
+.admin-table th, .admin-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.admin-table th {
+    background-color: #2198ce;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.admin-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Botones */
+.btn-action {
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 5px 0;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.btn-action:hover {
+    background-color: #2980b9;
+}
+
+.btn-edit {
+    background-color: #2ecc71;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.btn-edit:hover {
+    background-color: #27ae60;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .admin-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+/* Estilos para las pestañas */
+.tabs-container {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+}
+
+.tabs-container a {
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c3e50;
+    border-radius: 5px 5px 0 0;
+    margin-right: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Ocultar contenido de pestañas por defecto */
+.tab-content {
+    display: none;
+}
+
+/* Mostrar contenido activo */
+.active-tab {
+    display: block;
+}
+
+/* Estilo para pestañas activas */
+.tab-active {
+    background-color: #ff4c68;
+    color: #ffffff;
+    border-bottom: none;
+}
+
+/* Estilo para pestañas inactivas */
+.tab-inactive {
+    color: #2c3e50;
+}
+
+.tab-inactive:hover {
+    background-color: #f0f2f6;
+    color: #000;
+}

@@ -1,0 +1,33 @@
+{% extends 'admin_panel/admin_base.html' %}
+
+{% block title %}Gestión de Transacciones{% endblock %}
+
+{% block content %}
+<h1 class="admin-panel-title">Gestión de Transacciones</h1>
+<table class="admin-table">
+    <thead>
+        <tr>
+            <th>Número de Transacción</th>
+            <th>Pedido</th>
+            <th>Método de Pago</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaccion in transacciones %}
+        <tr>
+            <td>{{ transaccion.id }}</td>
+            <td>{{ transaccion.pedido.id }}</td>
+            <td>{{ transaccion.metodo_pago }}</td>
+            <td>{{ transaccion.monto_formateado }}</td>
+            <td>{{ transaccion.fecha_transaccion|date:"d/m/Y H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hay transacciones registradas.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

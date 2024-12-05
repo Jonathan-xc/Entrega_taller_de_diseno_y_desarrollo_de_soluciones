@@ -1,0 +1,57 @@
+{% extends 'catalogo/base.html' %}
+
+{% block title %}Editar Perfil{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h1>Editar Perfil</h1>
+
+    <!-- Mostrar mensajes -->
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Formulario -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <!-- Campo Nombre -->
+        <div class="form-group">
+            {{ form.nombre.label_tag }}
+            {{ form.nombre }}
+            {{ form.nombre.errors }}
+        </div>
+
+        <!-- Campo Email -->
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+
+        <!-- Campo Teléfono -->
+        <div class="form-group">
+            {{ form.telefono.label_tag }}
+            {{ form.telefono }}
+            {{ form.telefono.errors }}
+        </div>
+
+        <!-- Campo Dirección -->
+        <div class="form-group">
+            {{ form.direccion.label_tag }}
+            {{ form.direccion }}
+            {{ form.direccion.errors }}
+        </div>
+
+        <!-- Botón Guardar -->
+        <button type="submit" class="btn btn-primary w-100">Guardar Cambios</button>
+    </form>
+</div>
+{% endblock %}

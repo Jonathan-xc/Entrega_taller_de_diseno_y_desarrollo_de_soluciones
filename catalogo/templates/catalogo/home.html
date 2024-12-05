@@ -1,0 +1,69 @@
+{% extends 'catalogo/base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Barra de filtros -->
+    <div class="col-lg-3">
+        <h5>Filtrar por:</h5>
+        <form method="GET" action="{% url 'home' %}">
+            <!-- Rango de precios -->
+            <div class="catalog-filter-group">
+                <label for="price-min">Precio:</label>
+                <input type="text" id="price-min" name="price_min" class="form-control clp-input mb-2" placeholder="Desde">
+                <input type="text" id="price-max" name="price_max" class="form-control clp-input" placeholder="Hasta">
+            </div>
+            <!-- Categoría -->
+            <div class="catalog-filter-group">
+                <label for="category">Categoría:</label>
+                <select id="category" name="category" class="form-control">
+                    <option value="">Todas</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}" {% if request.GET.category == category %}selected{% endif %}>
+                        {{ category }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="catalog-filter-btn mt-3">Aplicar filtros</button>
+        </form>
+    </div>
+    <!-- Catálogo de productos -->
+    <div class="col-lg-9">
+        <h1 class="catalog-title text-center">Catálogo de Productos</h1>
+        <div class="row">
+            {% for producto in productos %}
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="product-card" data-product-id="{{ producto.id }}">
+                    <div class="product-image-container">
+                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="product-image">
+                    </div>
+                    <h3 class="product-title">{{ producto.nombre }}</h3>
+                    <p class="product-price">{{ producto.precio_formateado }} CLP</p>
+                    {% if producto.disponibilidad %}
+                    <p class="product-availability">Estado: {{ producto.disponibilidad }}</p>
+                    {% endif %}
+                    <form method="POST" action="{% url 'agregar_producto_carrito' producto.id %}">
+                        {% csrf_token %}
+                        <!-- Botón de añadir al carrito -->
+                        <button 
+                            class="btn btn-primary add-to-cart-btn" 
+                            data-producto-id="{{ producto.id }}" 
+                            {% if producto.stock == 0 %}disabled{% endif %}>
+                            {% if producto.stock == 0 %}
+                                Sin stock
+                            {% else %}
+                                <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                            {% endif %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center">No hay productos disponibles.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'admin_panel/admin_base.html' %}
+
+{% block title %}Añadir Producto{% endblock %}
+
+{% block content %}
+<div class="tabs-container">
+    <a href="{% url 'listar_productos' %}" class="{% if request.resolver_match.url_name == 'listar_productos' %}tab-active{% else %}tab-inactive{% endif %}">Lista de Productos</a>
+    <a href="{% url 'crear_producto' %}" class="{% if request.resolver_match.url_name == 'crear_producto' %}tab-active{% else %}tab-inactive{% endif %}">Añadir Producto</a>
+</div>
+
+<h1 class="admin-panel-title">Crear Nuevo Producto</h1>
+
+<!-- Aplicar la clase "add-product-form" al formulario -->
+<form method="POST" enctype="multipart/form-data" class="add-product-form">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="id_nombre">Nombre:</label>
+        <input type="text" id="id_nombre" name="nombre" maxlength="100" required>
+    </div>
+    <div class="form-group">
+        <label for="id_precio">Precio:</label>
+        <input type="text" id="id_precio" name="precio" required>
+    </div>
+    <div class="form-group">
+        <label for="id_stock">Stock:</label>
+        <input type="number" id="id_stock" name="stock" required>
+    </div>
+    <div class="form-group">
+        <label for="id_categoria">Categoría:</label>
+        <select id="id_categoria" name="categoria">
+            <option value="clasica">Clásica</option>
+            <option value="moderna">Moderna</option>
+            <option value="premium">Premium</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="id_descripcion">Descripción:</label>
+        <textarea id="id_descripcion" name="descripcion" maxlength="1000"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="id_imagen">Imagen:</label>
+        <input type="file" id="id_imagen" name="imagen">
+    </div>
+    <button type="submit" class="btn-action">Crear</button>
+</form>
+{% endblock %}

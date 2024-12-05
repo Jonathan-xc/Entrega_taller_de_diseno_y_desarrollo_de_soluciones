@@ -1,0 +1,34 @@
+Revisar la conexión a la base de datos, el nombre y contraseña usada:
+# Database configuration
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'casasprefabricadas',
+        'USER': 'root', ------------ esto
+        'PASSWORD': 'root', --------- esto
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+
+luego revisar la carpeta migrations si tiene dentro una carpeta llamada "__pycache__" y un archivo llamado "00001_initial.py" deberas borrarlos.
+
+
+Luego de realizado la conexión a la base de dato, abrir el archivo sql y ejecutar las dos líneas:
+
+CREATE DATABASE Casasprefabricadas CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE Casasprefabricadas;
+
+Luego abrir la cmd y ingresar la ruta hasta donde esta el archivo manage.py
+
+ingresar las siguiente líneas por orden para realizar las migraciones y iniciar el projecto:
+
+1 = python manage.py makemigrations
+2 = python manage.py migrate
+3 = python manage.py runserver
+
+instalar lo siguiente:
+
+pip install django-widget-tweaks
+pip install requests

@@ -1,0 +1,85 @@
+{% extends 'catalogo/base.html' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+<div class="registro-container">
+    <h1>Registro</h1>
+
+    <!-- Mostrar mensajes -->
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+                {% if 'registro' in message.tags %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Formulario de registro -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <!-- Campo Nombre -->
+        <div class="form-group">
+            {{ form.nombre.label_tag }}
+            {{ form.nombre }}
+            {{ form.nombre.errors }}
+        </div>
+
+        <!-- Campo Email -->
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+
+        <!-- Campo Dirección (opcional) -->
+        <div class="form-group">
+            {{ form.direccion.label_tag }}
+            {{ form.direccion }}
+            {{ form.direccion.errors }}
+        </div>
+
+        <!-- Campo Teléfono (opcional) -->
+        <div class="form-group">
+            {{ form.telefono.label_tag }}
+            {{ form.telefono }}
+            {{ form.telefono.errors }}
+        </div>
+
+        <!-- Campo Contraseña -->
+        <div class="form-group">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+
+        <!-- Campo Confirmar Contraseña -->
+        <div class="form-group">
+            {{ form.confirm_password.label_tag }}
+            {{ form.confirm_password }}
+            {{ form.confirm_password.errors }}
+        </div>
+
+        <!-- Botón de registro -->
+        <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+    </form>
+</div>
+
+<!-- Redirección después del registro exitoso -->
+{% if registro_exitoso %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        alert("Registro exitoso. Ahora puede iniciar sesión.");
+        window.location.href = "{% url 'login' %}";
+    });
+</script>
+{% endif %}
+
+{% endblock %}

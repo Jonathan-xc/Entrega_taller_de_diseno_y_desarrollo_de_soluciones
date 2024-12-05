@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Panel de Administración{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/admin_panel.css' %}">
+</head>
+<body class="admin-panel-body">
+    <div class="admin-panel-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="logo">
+                <img src="{% static 'images/logo.png' %}" alt="Logo New House Dreams SPA">
+            </div>
+            <nav>
+                <ul>
+                    {% if user.rol == 'administrador' or user.rol == 'vendedor' %}
+                        <li>
+                            <a href="{% url 'listar_productos' %}" class="{% if request.resolver_match.url_name in 'listar_productos crear_producto' %}active{% endif %}">
+                                Administración de Productos
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if user.rol == 'administrador' or user.rol == 'vendedor' or user.rol == 'empleado_postventa' %}
+                        <li>
+                            <a href="{% url 'ordenes' %}" class="{% if request.resolver_match.url_name == 'ordenes' %}active{% endif %}">
+                                Órdenes de compra
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if user.rol == 'administrador' %}
+                        <li>
+                            <a href="{% url 'transacciones' %}" class="{% if request.resolver_match.url_name == 'transacciones' %}active{% endif %}">
+                                Gestión de transacciones
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'listar_usuarios' %}" class="{% if request.resolver_match.url_name in 'listar_usuarios agregar_usuario edit_user delete_user' %}active{% endif %}">
+                                Gestión de Usuarios
+                            </a>
+                        </li>                     
+                    {% endif %}
+                </ul>
+            </nav>
+            <a href="{% url 'admin_logout' %}" class="logout-button">Cerrar sesión</a>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="admin-content">
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+    <script src="{% static 'js/admin_panel.js' %}"></script>
+</body>
+</html>
